@@ -3,7 +3,9 @@ import { useState,useEffect } from "react"
 import Link from "next/link"
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 const LoginPage = () => {
+    const router = useRouter();    
 
     const [user, setUser] = useState({
         email: "",
@@ -27,10 +29,16 @@ const LoginPage = () => {
         }
     }, [user]);
 
-    const onSubmitHandler = (e) => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
-        try{
-            toast.success("login suscces")
+        try {
+            const response = await axios.post('/api/register', user);
+            const data = await response.data;
+            toast.success(data?.message)
+
+            router.push("/login")
+
+
         } catch (e) {
             toast.error(e?.response?.data?.error)
         }
