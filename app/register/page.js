@@ -6,6 +6,7 @@ import axios from "axios";
 const LoginPage = () => {
 
     const [user, setUser] = useState({
+        username:"",
         email: "",
         password: ""
     });
@@ -20,7 +21,7 @@ const LoginPage = () => {
     };
 
     useEffect(() => {
-        if (user.email && user.password) {
+        if (user.email && user.password&& user.username ) {
             setIsDisable(false);
         } else {
             setIsDisable(true);
@@ -30,7 +31,7 @@ const LoginPage = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         try{
-            toast.success("login suscces")
+            toast.success("register suscces")
         } catch (e) {
             toast.error(e?.response?.data?.error)
         }
@@ -39,6 +40,10 @@ const LoginPage = () => {
     return <>
         <section className="min-h-screen flex flex-col items-center justify-center">
             <form onSubmit={onSubmitHandler} className="w-full mx-auto flex flex-col gap-5 md:w-1/2">
+            <div className="mb-3">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Username</label>
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="username" value={user.username} onChange={onChangeHandler} placeholder="username" />
+                </div>
                 <div className="mb-3">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">Email</label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="email" value={user.email} onChange={onChangeHandler} placeholder="Email" />
@@ -48,10 +53,10 @@ const LoginPage = () => {
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" name="password" value={user.password} onChange={onChangeHandler} placeholder="Password value=" />
                 </div>
                 <div className="mb-3">
-                    <button disabled={isDisable} className="px-5 py-2 bg-blue-500 text-white rounded w-full disabled:bg-gray-300 ">Login</button>
+                    <button disabled={isDisable} className="px-5 py-2 bg-blue-500 text-white rounded w-full disabled:bg-gray-300 ">Register</button>
                 </div>
                 <div className="text-center mb-3 text-white">
-                    <p>No tengo cuenta <Link className="font-bold " href="/register">Sign Up</Link> </p>
+                    <p>Ahora tengo cuenta <Link className="font-bold " href="/login">Sign In</Link> </p>
                 </div>
             </form>
         </section>
